@@ -6,112 +6,98 @@ extension CorePaletteToColorScheme on CorePalette {
   ColorScheme toColorScheme({
     Brightness brightness = Brightness.light,
   }) {
-    if (brightness == Brightness.light) {
-      return ColorScheme(
-        primary: Color(primary.get(40)),
-        onPrimary: Color(primary.get(100)),
-        primaryContainer: Color(primary.get(90)),
-        onPrimaryContainer: Color(primary.get(10)),
-        primaryFixed: Color(primary.get(90)),
-        onPrimaryFixed: Color(primary.get(10)),
-        primaryFixedDim: Color(primary.get(80)),
-        onPrimaryFixedVariant: Color(primary.get(30)),
-        secondary: Color(secondary.get(40)),
-        onSecondary: Color(secondary.get(100)),
-        secondaryContainer: Color(secondary.get(90)),
-        onSecondaryContainer: Color(secondary.get(10)),
-        secondaryFixed: Color(secondary.get(90)),
-        onSecondaryFixed: Color(secondary.get(10)),
-        secondaryFixedDim: Color(secondary.get(80)),
-        onSecondaryFixedVariant: Color(secondary.get(30)),
-        tertiary: Color(tertiary.get(40)),
-        onTertiary: Color(tertiary.get(100)),
-        tertiaryContainer: Color(tertiary.get(90)),
-        onTertiaryContainer: Color(tertiary.get(10)),
-        tertiaryFixed: Color(tertiary.get(90)),
-        onTertiaryFixed: Color(tertiary.get(10)),
-        tertiaryFixedDim: Color(tertiary.get(80)),
-        onTertiaryFixedVariant: Color(tertiary.get(30)),
-        error: Color(error.get(40)),
-        onError: Color(error.get(100)),
-        errorContainer: Color(error.get(90)),
-        onErrorContainer: Color(error.get(10)),
-        background: Color(neutral.get(98)),
-        onBackground: Color(neutral.get(10)),
-        surface: Color(neutral.get(98)),
-        onSurface: Color(neutral.get(10)),
-        surfaceVariant: Color(neutralVariant.get(90)),
-        onSurfaceVariant: Color(neutralVariant.get(30)),
-        surfaceContainerHighest: Color(neutral.get(90)),
-        surfaceContainerHigh: Color(neutral.get(92)),
-        surfaceContainer: Color(neutral.get(94)),
-        surfaceContainerLow: Color(neutral.get(96)),
-        surfaceContainerLowest: Color(neutral.get(100)),
-        inverseSurface: Color(neutral.get(20)),
-        onInverseSurface: Color(neutral.get(95)),
-        inversePrimary: Color(primary.get(80)),
-        surfaceTint: Color(primary.get(40)),
-        surfaceBright: Color(neutral.get(98)),
-        surfaceDim: Color(neutral.get(87)),
-        outline: Color(neutralVariant.get(50)),
-        outlineVariant: Color(neutralVariant.get(80)),
-        scrim: Color(neutral.get(0)),
-        shadow: Color(neutral.get(0)),
-        brightness: brightness,
-      );
-    } else {
-      return ColorScheme(
-        primary: Color(primary.get(80)),
-        onPrimary: Color(primary.get(20)),
-        primaryContainer: Color(primary.get(30)),
-        onPrimaryContainer: Color(primary.get(90)),
-        primaryFixed: Color(primary.get(90)),
-        onPrimaryFixed: Color(primary.get(10)),
-        primaryFixedDim: Color(primary.get(80)),
-        onPrimaryFixedVariant: Color(primary.get(30)),
-        secondary: Color(secondary.get(80)),
-        onSecondary: Color(secondary.get(20)),
-        secondaryContainer: Color(secondary.get(30)),
-        onSecondaryContainer: Color(secondary.get(90)),
-        secondaryFixed: Color(secondary.get(90)),
-        onSecondaryFixed: Color(secondary.get(10)),
-        secondaryFixedDim: Color(secondary.get(80)),
-        onSecondaryFixedVariant: Color(secondary.get(30)),
-        tertiary: Color(tertiary.get(80)),
-        onTertiary: Color(tertiary.get(20)),
-        tertiaryContainer: Color(tertiary.get(30)),
-        onTertiaryContainer: Color(tertiary.get(90)),
-        tertiaryFixed: Color(tertiary.get(90)),
-        onTertiaryFixed: Color(tertiary.get(10)),
-        tertiaryFixedDim: Color(tertiary.get(80)),
-        onTertiaryFixedVariant: Color(tertiary.get(30)),
-        error: Color(error.get(80)),
-        onError: Color(error.get(20)),
-        errorContainer: Color(error.get(30)),
-        onErrorContainer: Color(error.get(90)),
-        background: Color(neutral.get(6)),
-        onBackground: Color(neutral.get(90)),
-        surface: Color(neutral.get(6)),
-        onSurface: Color(neutral.get(90)),
-        surfaceVariant: Color(neutralVariant.get(30)),
-        onSurfaceVariant: Color(neutralVariant.get(80)),
-        surfaceContainerHighest: Color(neutral.get(22)),
-        surfaceContainerHigh: Color(neutral.get(17)),
-        surfaceContainer: Color(neutral.get(12)),
-        surfaceContainerLow: Color(neutral.get(10)),
-        surfaceContainerLowest: Color(neutral.get(4)),
-        inverseSurface: Color(neutral.get(90)),
-        onInverseSurface: Color(neutral.get(20)),
-        inversePrimary: Color(primary.get(80)),
-        surfaceTint: Color(primary.get(80)),
-        surfaceBright: Color(neutral.get(24)),
-        surfaceDim: Color(neutral.get(6)),
-        outline: Color(neutralVariant.get(60)),
-        outlineVariant: Color(neutralVariant.get(30)),
-        scrim: Color(neutral.get(0)),
-        shadow: Color(neutral.get(0)),
-        brightness: brightness,
-      );
-    }
+    DynamicScheme scheme = DynamicScheme(
+      sourceColorArgb: primary.get(40),
+      variant: Variant.tonalSpot,
+      isDark: brightness == Brightness.dark,
+      primaryPalette: primary,
+      secondaryPalette: secondary,
+      tertiaryPalette: tertiary,
+      neutralPalette: neutral,
+      neutralVariantPalette: neutralVariant,
+    );
+
+    return ColorScheme(
+      primary: Color(MaterialDynamicColors.primary.getArgb(scheme)),
+      onPrimary: Color(MaterialDynamicColors.onPrimary.getArgb(scheme)),
+      primaryContainer:
+          Color(MaterialDynamicColors.primaryContainer.getArgb(scheme)),
+      onPrimaryContainer:
+          Color(MaterialDynamicColors.onPrimaryContainer.getArgb(scheme)),
+      primaryFixed: Color(MaterialDynamicColors.primaryFixed.getArgb(scheme)),
+      primaryFixedDim:
+          Color(MaterialDynamicColors.primaryFixedDim.getArgb(scheme)),
+      onPrimaryFixed:
+          Color(MaterialDynamicColors.onPrimaryFixed.getArgb(scheme)),
+      onPrimaryFixedVariant:
+          Color(MaterialDynamicColors.onPrimaryFixedVariant.getArgb(scheme)),
+      secondary: Color(MaterialDynamicColors.secondary.getArgb(scheme)),
+      onSecondary: Color(MaterialDynamicColors.onSecondary.getArgb(scheme)),
+      secondaryContainer:
+          Color(MaterialDynamicColors.secondaryContainer.getArgb(scheme)),
+      onSecondaryContainer:
+          Color(MaterialDynamicColors.onSecondaryContainer.getArgb(scheme)),
+      secondaryFixed:
+          Color(MaterialDynamicColors.secondaryFixed.getArgb(scheme)),
+      secondaryFixedDim:
+          Color(MaterialDynamicColors.secondaryFixedDim.getArgb(scheme)),
+      onSecondaryFixed:
+          Color(MaterialDynamicColors.onSecondaryFixed.getArgb(scheme)),
+      onSecondaryFixedVariant:
+          Color(MaterialDynamicColors.onSecondaryFixedVariant.getArgb(scheme)),
+      tertiary: Color(MaterialDynamicColors.tertiary.getArgb(scheme)),
+      onTertiary: Color(MaterialDynamicColors.onTertiary.getArgb(scheme)),
+      tertiaryContainer:
+          Color(MaterialDynamicColors.tertiaryContainer.getArgb(scheme)),
+      onTertiaryContainer:
+          Color(MaterialDynamicColors.onTertiaryContainer.getArgb(scheme)),
+      tertiaryFixed: Color(MaterialDynamicColors.tertiaryFixed.getArgb(scheme)),
+      tertiaryFixedDim:
+          Color(MaterialDynamicColors.tertiaryFixedDim.getArgb(scheme)),
+      onTertiaryFixed:
+          Color(MaterialDynamicColors.onTertiaryFixed.getArgb(scheme)),
+      onTertiaryFixedVariant:
+          Color(MaterialDynamicColors.onTertiaryFixedVariant.getArgb(scheme)),
+      error: Color(MaterialDynamicColors.error.getArgb(scheme)),
+      onError: Color(MaterialDynamicColors.onError.getArgb(scheme)),
+      errorContainer:
+          Color(MaterialDynamicColors.errorContainer.getArgb(scheme)),
+      onErrorContainer:
+          Color(MaterialDynamicColors.onErrorContainer.getArgb(scheme)),
+      outline: Color(MaterialDynamicColors.outline.getArgb(scheme)),
+      outlineVariant:
+          Color(MaterialDynamicColors.outlineVariant.getArgb(scheme)),
+      surface: Color(MaterialDynamicColors.surface.getArgb(scheme)),
+      surfaceDim: Color(MaterialDynamicColors.surfaceDim.getArgb(scheme)),
+      surfaceBright: Color(MaterialDynamicColors.surfaceBright.getArgb(scheme)),
+      surfaceContainerLowest:
+          Color(MaterialDynamicColors.surfaceContainerLowest.getArgb(scheme)),
+      surfaceContainerLow:
+          Color(MaterialDynamicColors.surfaceContainerLow.getArgb(scheme)),
+      surfaceContainer:
+          Color(MaterialDynamicColors.surfaceContainer.getArgb(scheme)),
+      surfaceContainerHigh:
+          Color(MaterialDynamicColors.surfaceContainerHigh.getArgb(scheme)),
+      surfaceContainerHighest:
+          Color(MaterialDynamicColors.surfaceContainerHighest.getArgb(scheme)),
+      onSurface: Color(MaterialDynamicColors.onSurface.getArgb(scheme)),
+      onSurfaceVariant:
+          Color(MaterialDynamicColors.onSurfaceVariant.getArgb(scheme)),
+      inverseSurface:
+          Color(MaterialDynamicColors.inverseSurface.getArgb(scheme)),
+      onInverseSurface:
+          Color(MaterialDynamicColors.inverseOnSurface.getArgb(scheme)),
+      inversePrimary:
+          Color(MaterialDynamicColors.inversePrimary.getArgb(scheme)),
+      shadow: Color(MaterialDynamicColors.shadow.getArgb(scheme)),
+      scrim: Color(MaterialDynamicColors.scrim.getArgb(scheme)),
+      surfaceTint: Color(MaterialDynamicColors.primary.getArgb(scheme)),
+      brightness: brightness,
+      // DEPRECATED (newest deprecations at the bottom)
+      background: Color(MaterialDynamicColors.background.getArgb(scheme)),
+      onBackground: Color(MaterialDynamicColors.onBackground.getArgb(scheme)),
+      surfaceVariant:
+          Color(MaterialDynamicColors.surfaceVariant.getArgb(scheme)),
+    );
   }
 }
